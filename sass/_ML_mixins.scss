@@ -20,19 +20,40 @@
 //Sparkbox mixin - https://github.com/sparkbox/SB-Media
 $no-mq-support: false !default;
 $serve-to-nomq-max-width: 1280;
-//determines hwo to add in media queries
-@mixin sb-media($query) 
+//determines how to add in mq (min only)
+@mixin sb-media($query, $useMaxWidth: "") 
 {
 	@if $no-mq-support{
-		@if unquote($query) < $serve-to-nomq-max-width{
+		@if unquote($query) < $serve-to-nomq-max-width{ 
 			@content;
 		}
 	} @else {
-		@media ( 'min-width:' + $query ) {
-			@content;
+		@if $useMaxWidth == "" {	//check to see if max width exists
+			@media ( 'min-width:' + $query ) {	//original line - changed to fit needs
+			//@media ( $query ) {
+				@content;
+			}
+		} @else {
+			//use max-width 
+			@media ( 'max-width:' + $query ) {	
+				@content;
+			}
 		}
 	}
 }
+
+//Original mixin from Sparkbox
+//@mixin sb-media($query) {
+// @if $no-mq-support{
+//    @if $query < $serve-to-nomq-max-width{
+//      @content;
+//    }
+//  } @else {
+//    @media ( 'min-width:' + $query ) {
+//      @content;
+//    }
+//  }
+//}
 
 
 

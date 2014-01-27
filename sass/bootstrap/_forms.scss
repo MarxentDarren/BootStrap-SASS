@@ -295,7 +295,7 @@ input[type="checkbox"],
 .form-inline {
 
   // Kick in the inline
-  @include sb-media(min-width: $screen-sm) {
+  @include sb-media($screen-sm) {
     // Inline-block all the things for "inline"
     .form-group  {
       display: inline-block;
@@ -366,7 +366,7 @@ input[type="checkbox"],
   }
 
   // Only right align form labels here when the columns stop stacking
-  @include sb-media(min-width: $screen-sm-min) {
+  @include sb-media($screen-sm-min) {
     .control-label {
       text-align: right;
     }

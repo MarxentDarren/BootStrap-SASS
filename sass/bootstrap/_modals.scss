@@ -116,7 +116,8 @@
 }
 
 // Scale up the modal
-@media screen and (min-width: $screen-sm-min) {
+//@media screen and (min-width: $screen-sm-min) {
+  @include sb-media($screen-sm-min) {
 
   .modal-dialog {
     width: 600px;
