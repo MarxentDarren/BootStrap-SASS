@@ -2649,3 +2649,8 @@ h1.test {
 h2.test {
   width: 100%;
 }
+
+/* line 26, ../sass/_ML_base.scss */
+h3.test {
+  width: 100%;
+}
