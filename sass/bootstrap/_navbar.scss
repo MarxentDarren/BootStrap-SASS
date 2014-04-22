@@ -17,7 +17,7 @@
   // Prevent floats from breaking the navbar
   @include clearfix();
 
-  @include sb-media($grid-float-breakpoint) {
+ @include sb-media($grid-float-breakpoint) {
     border-radius: $navbar-border-radius;
   }
 }
@@ -48,7 +48,6 @@
 // content for the user's viewport.
 
 .navbar-collapse {
-  max-height: 340px;
   overflow-x: visible;
   padding-right: $navbar-padding-horizontal;
   padding-left:  $navbar-padding-horizontal;
@@ -88,19 +87,33 @@
   }
 }
 
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  .navbar-collapse {
+    max-height: $navbar-collapse-max-height;
+
+    @include sb-media($screen-xs-min, "maxWidth") and (orientation: landscape) {
+      max-height: 200px;
+    }
+  }
+}
+
 
 // Both navbar header and collapse
 //
 // When a container is present, change the behavior of the header and collapse.
 
-.container > .navbar-header,
-.container > .navbar-collapse {
-  margin-right: -$navbar-padding-horizontal;
-  margin-left:  -$navbar-padding-horizontal;
+.container,
+.container-fluid {
+  > .navbar-header,
+  > .navbar-collapse {
+    margin-right: -$navbar-padding-horizontal;
+    margin-left:  -$navbar-padding-horizontal;
 
-  @include sb-media($grid-float-breakpoint) {
-    margin-right: 0;
-    margin-left:  0;
+    @include sb-media($grid-float-breakpoint) {
+      margin-right: 0;
+      margin-left:  0;
+    }
   }
 }
 
@@ -152,6 +165,7 @@
   padding: $navbar-padding-vertical $navbar-padding-horizontal;
   font-size: $font-size-large;
   line-height: $line-height-computed;
+  height: $navbar-height;
 
   &:hover,
   &:focus {
@@ -159,7 +173,8 @@
   }
 
   @include sb-media($grid-float-breakpoint) {
-    .navbar > .container & {
+    .navbar > .container &,
+    .navbar > .container-fluid & {
       margin-left: -$navbar-padding-horizontal;
     }
   }
@@ -182,6 +197,12 @@
   border: 1px solid transparent;
   border-radius: $border-radius-base;
 
+  // We remove the `outline` here, but later compensate by attaching `:hover`
+  // styles to `:focus`.
+  &:focus {
+    outline: 0;
+  }
+
   // Bars
   .icon-bar {
     display: block;
@@ -201,7 +222,7 @@
 
 // Navbar nav links
 //
-// Builds on top of the `.nav` components with it's own modifier class to make
+// Builds on top of the `.nav` components with its own modifier class to make
 // the nav the full height of the horizontal nav (above 768px).
 
 .navbar-nav {
@@ -213,7 +234,7 @@
     line-height: $line-height-computed;
   }
 
-  @include sb-media($grid-float-breakpoint-max, "maxWidth") {
+  @include sb-media($grid-float-breakpoint-max, "maxWidth")  {
     // Dropdowns get custom display when collapsed
     .open .dropdown-menu {
       position: static;
@@ -291,7 +312,7 @@
   @extend .form-inline;
 
   .form-group {
-    @include sb-media($grid-float-breakpoint-max) {
+    @include sb-media($grid-float-breakpoint-max, "maxWidth")  {
       margin-bottom: 5px;
     }
   }
@@ -329,13 +350,6 @@
   @include border-bottom-radius(0);
 }
 
-// Right aligned menus need alt position
-.navbar-nav.pull-right > li > .dropdown-menu,
-.navbar-nav > li > .dropdown-menu.pull-right {
-  left: auto;
-  right: 0;
-}
-
 
 // Buttons in navbars
 //
@@ -360,7 +374,7 @@
 .navbar-text {
   @include navbar-vertical-align($line-height-computed);
 
-  @include sb-media($grid-float-breakpoint) {
+  @@include sb-media($grid-float-breakpoint) {
     float: left;
     margin-left: $navbar-padding-horizontal;
     margin-right: $navbar-padding-horizontal;
@@ -492,6 +506,20 @@
     }
   }
 
+  .btn-link {
+    color: $navbar-default-link-color;
+    &:hover,
+    &:focus {
+      color: $navbar-default-link-hover-color;
+    }
+    &[disabled],
+    fieldset[disabled] & {
+      &:hover,
+      &:focus {
+        color: $navbar-default-link-disabled-color;
+      }
+    }
+  }
 }
 
 // Inverse navbar
@@ -613,4 +641,18 @@
     }
   }
 
+  .btn-link {
+    color: $navbar-inverse-link-color;
+    &:hover,
+    &:focus {
+      color: $navbar-inverse-link-hover-color;
+    }
+    &[disabled],
+    fieldset[disabled] & {
+      &:hover,
+      &:focus {
+        color: $navbar-inverse-link-disabled-color;
+      }
+    }
+  }
 }
