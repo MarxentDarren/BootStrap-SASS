@@ -17,7 +17,7 @@
   // Prevent floats from breaking the navbar
   @include clearfix();
 
-  @media (min-width: $grid-float-breakpoint) {
+ @include sb-media($grid-float-breakpoint) {
     border-radius: $navbar-border-radius;
   }
 }
@@ -31,7 +31,7 @@
 .navbar-header {
   @include clearfix();
 
-  @media (min-width: $grid-float-breakpoint) {
+  @include sb-media($grid-float-breakpoint) {
     float: left;
   }
 }
@@ -60,7 +60,7 @@
     overflow-y: auto;
   }
 
-  @media (min-width: $grid-float-breakpoint) {
+  @include sb-media($grid-float-breakpoint) {
     width: auto;
     border-top: 0;
     box-shadow: none;
@@ -92,7 +92,7 @@
   .navbar-collapse {
     max-height: $navbar-collapse-max-height;
 
-    @media (max-width: $screen-xs-min) and (orientation: landscape) {
+    @include sb-media($screen-xs-min, "maxWidth") and (orientation: landscape) {
       max-height: 200px;
     }
   }
@@ -110,7 +110,7 @@
     margin-right: -$navbar-padding-horizontal;
     margin-left:  -$navbar-padding-horizontal;
 
-    @media (min-width: $grid-float-breakpoint) {
+    @include sb-media($grid-float-breakpoint) {
       margin-right: 0;
       margin-left:  0;
     }
@@ -129,7 +129,7 @@
   z-index: $zindex-navbar;
   border-width: 0 0 1px;
 
-  @media (min-width: $grid-float-breakpoint) {
+  @include sb-media($grid-float-breakpoint) {
     border-radius: 0;
   }
 }
@@ -143,7 +143,7 @@
   z-index: $zindex-navbar-fixed;
 
   // Undo the rounded corners
-  @media (min-width: $grid-float-breakpoint) {
+  @include sb-media($grid-float-breakpoint) {
     border-radius: 0;
   }
 }
@@ -172,7 +172,7 @@
     text-decoration: none;
   }
 
-  @media (min-width: $grid-float-breakpoint) {
+  @include sb-media($grid-float-breakpoint) {
     .navbar > .container &,
     .navbar > .container-fluid & {
       margin-left: -$navbar-padding-horizontal;
@@ -214,7 +214,7 @@
     margin-top: 4px;
   }
 
-  @media (min-width: $grid-float-breakpoint) {
+  @include sb-media($grid-float-breakpoint) {
     display: none;
   }
 }
@@ -234,7 +234,7 @@
     line-height: $line-height-computed;
   }
 
-  @media (max-width: $grid-float-breakpoint-max) {
+  @include sb-media($grid-float-breakpoint-max, "maxWidth")  {
     // Dropdowns get custom display when collapsed
     .open .dropdown-menu {
       position: static;
@@ -259,7 +259,7 @@
   }
 
   // Uncollapse the nav
-  @media (min-width: $grid-float-breakpoint) {
+  @include sb-media($grid-float-breakpoint) {
     float: left;
     margin: 0;
 
@@ -284,7 +284,7 @@
 // issues with parents and chaining. Only do this when the navbar is uncollapsed
 // though so that navbar contents properly stack and align in mobile.
 
-@media (min-width: $grid-float-breakpoint) {
+@include sb-media($grid-float-breakpoint) {
   .navbar-left {
     float: left !important;
   }
@@ -312,7 +312,7 @@
   @extend .form-inline;
 
   .form-group {
-    @media (max-width: $grid-float-breakpoint-max) {
+    @include sb-media($grid-float-breakpoint-max, "maxWidth")  {
       margin-bottom: 5px;
     }
   }
@@ -321,7 +321,7 @@
   @include navbar-vertical-align($input-height-base);
 
   // Undo 100% width for pull classes
-  @media (min-width: $grid-float-breakpoint) {
+  @include sb-media($grid-float-breakpoint) {
     width: auto;
     border: 0;
     margin-left: 0;
@@ -374,7 +374,7 @@
 .navbar-text {
   @include navbar-vertical-align($line-height-computed);
 
-  @media (min-width: $grid-float-breakpoint) {
+  @@include sb-media($grid-float-breakpoint) {
     float: left;
     margin-left: $navbar-padding-horizontal;
     margin-right: $navbar-padding-horizontal;
@@ -463,7 +463,7 @@
       }
     }
 
-    @media (max-width: $grid-float-breakpoint-max) {
+    @include sb-media($grid-float-breakpoint-max,"maxWidth") {
       // Dropdowns get custom display when collapsed
       .open .dropdown-menu {
         > li > a {
@@ -597,7 +597,7 @@
       }
     }
 
-    @media (max-width: $grid-float-breakpoint-max) {
+    @include sb-media($grid-float-breakpoint-max,"maxWidth") {
       // Dropdowns get custom display
       .open .dropdown-menu {
         > .dropdown-header {

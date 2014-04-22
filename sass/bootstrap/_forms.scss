@@ -358,7 +358,7 @@ input[type="checkbox"],
 .form-inline {
 
   // Kick in the inline
-  @media (min-width: $screen-sm-min) {
+@include sb-media($screen-sm-min) {
     // Inline-block all the things for "inline"
     .form-group {
       display: inline-block;
@@ -459,7 +459,7 @@ input[type="checkbox"],
 
   // Reset spacing and right align labels, but scope to media queries so that
   // labels on narrow viewports stack the same as a default form example.
-  @media (min-width: $screen-sm-min) {
+ @include sb-media($screen-sm-min) {
     .control-label {
       text-align: right;
       margin-bottom: 0;

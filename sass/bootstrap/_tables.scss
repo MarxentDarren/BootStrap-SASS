@@ -169,7 +169,7 @@ table {
 // will display normally.
 
 .table-responsive {
-  @media screen and (max-width: $screen-xs-max) {
+  @include sb-media($screen-xs-max,"max-width") {
     width: 100%;
     margin-bottom: ($line-height-computed * 0.75);
     overflow-y: hidden;
