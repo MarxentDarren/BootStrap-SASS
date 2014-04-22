@@ -17,7 +17,7 @@
   // Prevent floats from breaking the navbar
   @include clearfix();
 
-  @include sb-media($grid-float-breakpoint) {
+  @media (min-width: $grid-float-breakpoint) {
     border-radius: $navbar-border-radius;
   }
 }
@@ -31,7 +31,7 @@
 .navbar-header {
   @include clearfix();
 
-  @include sb-media($grid-float-breakpoint) {
+  @media (min-width: $grid-float-breakpoint) {
     float: left;
   }
 }
@@ -48,7 +48,6 @@
 // content for the user's viewport.
 
 .navbar-collapse {
-  max-height: 340px;
   overflow-x: visible;
   padding-right: $navbar-padding-horizontal;
   padding-left:  $navbar-padding-horizontal;
@@ -61,7 +60,7 @@
     overflow-y: auto;
   }
 
-  @include sb-media($grid-float-breakpoint) {
+  @media (min-width: $grid-float-breakpoint) {
     width: auto;
     border-top: 0;
     box-shadow: none;
@@ -88,19 +87,33 @@
   }
 }
 
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  .navbar-collapse {
+    max-height: $navbar-collapse-max-height;
+
+    @media (max-width: $screen-xs-min) and (orientation: landscape) {
+      max-height: 200px;
+    }
+  }
+}
+
 
 // Both navbar header and collapse
 //
 // When a container is present, change the behavior of the header and collapse.
 
-.container > .navbar-header,
-.container > .navbar-collapse {
-  margin-right: -$navbar-padding-horizontal;
-  margin-left:  -$navbar-padding-horizontal;
+.container,
+.container-fluid {
+  > .navbar-header,
+  > .navbar-collapse {
+    margin-right: -$navbar-padding-horizontal;
+    margin-left:  -$navbar-padding-horizontal;
 
-  @include sb-media($grid-float-breakpoint) {
-    margin-right: 0;
-    margin-left:  0;
+    @media (min-width: $grid-float-breakpoint) {
+      margin-right: 0;
+      margin-left:  0;
+    }
   }
 }
 
@@ -116,7 +129,7 @@
   z-index: $zindex-navbar;
   border-width: 0 0 1px;
 
-  @include sb-media($grid-float-breakpoint) {
+  @media (min-width: $grid-float-breakpoint) {
     border-radius: 0;
   }
 }
@@ -130,7 +143,7 @@
   z-index: $zindex-navbar-fixed;
 
   // Undo the rounded corners
-  @include sb-media($grid-float-breakpoint) {
+  @media (min-width: $grid-float-breakpoint) {
     border-radius: 0;
   }
 }
@@ -152,14 +165,16 @@
   padding: $navbar-padding-vertical $navbar-padding-horizontal;
   font-size: $font-size-large;
   line-height: $line-height-computed;
+  height: $navbar-height;
 
   &:hover,
   &:focus {
     text-decoration: none;
   }
 
-  @include sb-media($grid-float-breakpoint) {
-    .navbar > .container & {
+  @media (min-width: $grid-float-breakpoint) {
+    .navbar > .container &,
+    .navbar > .container-fluid & {
       margin-left: -$navbar-padding-horizontal;
     }
   }
@@ -182,6 +197,12 @@
   border: 1px solid transparent;
   border-radius: $border-radius-base;
 
+  // We remove the `outline` here, but later compensate by attaching `:hover`
+  // styles to `:focus`.
+  &:focus {
+    outline: 0;
+  }
+
   // Bars
   .icon-bar {
     display: block;
@@ -193,7 +214,7 @@
     margin-top: 4px;
   }
 
-  @include sb-media($grid-float-breakpoint) {
+  @media (min-width: $grid-float-breakpoint) {
     display: none;
   }
 }
@@ -201,7 +222,7 @@
 
 // Navbar nav links
 //
-// Builds on top of the `.nav` components with it's own modifier class to make
+// Builds on top of the `.nav` components with its own modifier class to make
 // the nav the full height of the horizontal nav (above 768px).
 
 .navbar-nav {
@@ -213,7 +234,7 @@
     line-height: $line-height-computed;
   }
 
-  @include sb-media($grid-float-breakpoint-max, "maxWidth") {
+  @media (max-width: $grid-float-breakpoint-max) {
     // Dropdowns get custom display when collapsed
     .open .dropdown-menu {
       position: static;
@@ -238,7 +259,7 @@
   }
 
   // Uncollapse the nav
-  @include sb-media($grid-float-breakpoint) {
+  @media (min-width: $grid-float-breakpoint) {
     float: left;
     margin: 0;
 
@@ -263,7 +284,7 @@
 // issues with parents and chaining. Only do this when the navbar is uncollapsed
 // though so that navbar contents properly stack and align in mobile.
 
-@include sb-media($grid-float-breakpoint) {
+@media (min-width: $grid-float-breakpoint) {
   .navbar-left {
     float: left !important;
   }
@@ -291,7 +312,7 @@
   @extend .form-inline;
 
   .form-group {
-    @include sb-media($grid-float-breakpoint-max) {
+    @media (max-width: $grid-float-breakpoint-max) {
       margin-bottom: 5px;
     }
   }
@@ -300,7 +321,7 @@
   @include navbar-vertical-align($input-height-base);
 
   // Undo 100% width for pull classes
-  @include sb-media($grid-float-breakpoint) {
+  @media (min-width: $grid-float-breakpoint) {
     width: auto;
     border: 0;
     margin-left: 0;
@@ -329,13 +350,6 @@
   @include border-bottom-radius(0);
 }
 
-// Right aligned menus need alt position
-.navbar-nav.pull-right > li > .dropdown-menu,
-.navbar-nav > li > .dropdown-menu.pull-right {
-  left: auto;
-  right: 0;
-}
-
 
 // Buttons in navbars
 //
@@ -360,7 +374,7 @@
 .navbar-text {
   @include navbar-vertical-align($line-height-computed);
 
-  @include sb-media($grid-float-breakpoint) {
+  @media (min-width: $grid-float-breakpoint) {
     float: left;
     margin-left: $navbar-padding-horizontal;
     margin-right: $navbar-padding-horizontal;
@@ -449,7 +463,7 @@
       }
     }
 
-    @include sb-media($grid-float-breakpoint-max,"maxWidth") {
+    @media (max-width: $grid-float-breakpoint-max) {
       // Dropdowns get custom display when collapsed
       .open .dropdown-menu {
         > li > a {
@@ -492,6 +506,20 @@
     }
   }
 
+  .btn-link {
+    color: $navbar-default-link-color;
+    &:hover,
+    &:focus {
+      color: $navbar-default-link-hover-color;
+    }
+    &[disabled],
+    fieldset[disabled] & {
+      &:hover,
+      &:focus {
+        color: $navbar-default-link-disabled-color;
+      }
+    }
+  }
 }
 
 // Inverse navbar
@@ -569,7 +597,7 @@
       }
     }
 
-    @include sb-media($grid-float-breakpoint-max,"maxWidth") {
+    @media (max-width: $grid-float-breakpoint-max) {
       // Dropdowns get custom display
       .open .dropdown-menu {
         > .dropdown-header {
@@ -613,4 +641,18 @@
     }
   }
 
+  .btn-link {
+    color: $navbar-inverse-link-color;
+    &:hover,
+    &:focus {
+      color: $navbar-inverse-link-hover-color;
+    }
+    &[disabled],
+    fieldset[disabled] & {
+      &:hover,
+      &:focus {
+        color: $navbar-inverse-link-disabled-color;
+      }
+    }
+  }
 }
