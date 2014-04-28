@@ -92,7 +92,8 @@
   .navbar-collapse {
     max-height: $navbar-collapse-max-height;
 
-    @include sb-media($screen-xs-min, "maxWidth") and (orientation: landscape) {
+    //@include sb-media($screen-xs-min, "maxWidth") and (orientation: landscape) {
+      @include sb-media($screen-xs-min, "maxWidth"){
       max-height: 200px;
     }
   }
@@ -374,7 +375,7 @@
 .navbar-text {
   @include navbar-vertical-align($line-height-computed);
 
-  @@include sb-media($grid-float-breakpoint) {
+  @include sb-media($grid-float-breakpoint) {
     float: left;
     margin-left: $navbar-padding-horizontal;
     margin-right: $navbar-padding-horizontal;
